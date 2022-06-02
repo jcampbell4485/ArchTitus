@@ -163,7 +163,7 @@ echo "
 cat /mnt/etc/fstab
 echo -ne "
 -------------------------------------------------------------------------
-                    GRUB BIOS Bootloader Install & Check
+                    rEFInd UEFI Bootloader Install & Check
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then

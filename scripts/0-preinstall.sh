@@ -167,7 +167,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then
-    refind-install --usedefault --boot-directory=/mnt/boot ${DISK} --alldrivers
+    refind-install --usedefault /dev/nvme0n1p2 --alldrivers --boot-directory=/mnt/boot ${DISK}
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi

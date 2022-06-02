@@ -22,7 +22,7 @@ echo -ne "
                     Network Setup 
 -------------------------------------------------------------------------
 "
-pacman -S --noconfirm --needed networkmanager dhclient
+pacman -S --noconfirm --needed networkmanager dhclient network-manager-applet wireless_tools wpa_supplicant
 systemctl enable --now NetworkManager
 echo -ne "
 -------------------------------------------------------------------------

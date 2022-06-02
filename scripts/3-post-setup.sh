@@ -17,41 +17,41 @@ echo -ne "
 -------------------------------------------------------------------------
 
 Final Setup and Configurations
-GRUB EFI Bootloader Install & Check
+REFIND EFI Bootloader Install & Check
 "
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    grub-install --efi-directory=/boot ${DISK}
+    refind-install --efi-directory=/boot ${DISK}
 fi
 
 echo -ne "
 -------------------------------------------------------------------------
-               Creating (and Theming) Grub Boot Menu
+               Creating (and Theming) Refind Boot Menu
 -------------------------------------------------------------------------
 "
 # set kernel parameter for decrypting the drive
 if [[ "${FS}" == "luks" ]]; then
-sed -i "s%GRUB_CMDLINE_LINUX_DEFAULT=\"%GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/grub
+sed -i "s%REFIND_CMDLINE_LINUX_DEFAULT=\"%REFIND_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/refind
 fi
 # set kernel parameter for adding splash screen
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/grub
+sed -i 's/REFIND_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/refind
 
-echo -e "Installing CyberRe Grub theme..."
-THEME_DIR="/boot/grub/themes"
-THEME_NAME=CyberRe
+echo -e "Installing metro theme..."
+THEME_DIR="/boot/refind/themes"
+THEME_NAME=refind-theme-metro-git
 echo -e "Creating the theme directory..."
 mkdir -p "${THEME_DIR}/${THEME_NAME}"
 echo -e "Copying the theme..."
 cd ${HOME}/ArchTitus
 cp -a configs${THEME_DIR}/${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
-echo -e "Backing up Grub config..."
-cp -an /etc/default/grub /etc/default/grub.bak
+echo -e "Backing up refind config..."
+cp -an /etc/default/refind /etc/default/refind.bak
 echo -e "Setting the theme as the default..."
-grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
-echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
-echo -e "Updating grub..."
-grub-mkconfig -o /boot/grub/grub.cfg
+grep "REFIND_THEME=" /etc/default/refind 2>&1 >/dev/null && sed -i '/REFIND_THEME=/d' /etc/default/refind
+echo "REFIND_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/refind
+echo -e "Updating refind..."
+refind-mkconfig -o /boot/refind/refind.cfg
 echo -e "All set!"
 
 echo -ne "

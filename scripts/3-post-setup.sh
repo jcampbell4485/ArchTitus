@@ -22,9 +22,8 @@ REFIND EFI Bootloader Install & Check
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    refind-install --efi-directory=/boot ${DISK}
+    refind-install --default --efi-directory=/boot ${DISK} --alldrivers
 fi
-
 echo -ne "
 -------------------------------------------------------------------------
                Creating (and Theming) Refind Boot Menu

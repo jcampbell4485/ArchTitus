@@ -8,6 +8,7 @@ xorg-xinit
 xterm
 binutils
 dosfstools
+mtools
 linux-headers
 noto-fonts-emoji
 usbutils
@@ -42,17 +43,18 @@ flex
 fuse2
 fuse3
 fuseiso
+fprintd
 gamemode
 gcc
 gimp
 gparted
 gptfdisk
-grub-customizer
 gst-libav
 gst-plugins-good
 gst-plugins-ugly
 haveged
 htop
+imagemagick
 jdk-openjdk
 kitty
 libdvdcss

@@ -163,7 +163,7 @@ echo "
 cat /mnt/etc/fstab
 echo -ne "
 -------------------------------------------------------------------------
-                    rEFInd UEFI Bootloader Install & Check
+                   REFInd UEFI Bootloader Install & Check
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then

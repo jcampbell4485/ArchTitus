@@ -32,7 +32,7 @@ pacman -S --noconfirm archlinux-keyring #update keyrings to latest to prevent pa
 pacman -S --noconfirm --needed pacman-contrib terminus-font
 setfont ter-v22b
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-pacman -S --noconfirm --needed reflector rsync refind
+pacman -S --noconfirm --needed reflector rsync refind efibootmgr
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 echo -ne "
 -------------------------------------------------------------------------
@@ -129,7 +129,7 @@ elif [[ "${FS}" == "luks" ]]; then
 # now format that container
     mkfs.btrfs -L ROOT ${partition3}
 # create subvolumes for btrfs
-    mount -t btrfs ${partition3} /mnt
+     mount -t btrfs ${partition2} #mount -t btrfs ${partition3} /mnt hash change for test which part is correct
     subvolumesetup
 # store uuid of encrypted partition for grub
     echo ENCRYPTED_PARTITION_UUID=$(blkid -s UUID -o value ${partition3}) >> $CONFIGS_DIR/setup.conf

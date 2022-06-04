@@ -22,8 +22,13 @@ REFIND EFI Bootloader Install & Check
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    refind-install --default --efi-directory=/boot ${DISK} --alldrivers
+    refind-install --default /dev/nvme0n2p1 --alldrivers #--efi-directory=/boot ${DISK} --alldrivers
 fi
+mkrlconf
+sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
+#sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+#sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
+sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"'
 echo -ne "
 -------------------------------------------------------------------------
                Creating (and Theming) Refind Boot Menu

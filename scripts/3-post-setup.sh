@@ -28,7 +28,7 @@ mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
 #sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
-sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"'
+sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 echo -ne "
 -------------------------------------------------------------------------
                Creating (and Theming) Refind Boot Menu

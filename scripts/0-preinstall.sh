@@ -59,7 +59,7 @@ sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
 
 # create partitions
 sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:'BIOSBOOT' ${DISK} # partition 1 (BIOS Boot Partition)
-sgdisk -n 2::+300M --typecode=2:ef00 --change-name=2:'EFIBOOT' ${DISK} # partition 2 (UEFI Boot Partition)
+sgdisk -n 2::+500M --typecode=2:ef00 --change-name=2:'EFIBOOT' ${DISK} # partition 2 (UEFI Boot Partition)
 sgdisk -n 3::-0 --typecode=3:8300 --change-name=3:'ROOT' ${DISK} # partition 3 (Root), default start, remaining
 if [[ ! -d "/sys/firmware/efi" ]]; then # Checking for bios system
     sgdisk -A 1:set:2 ${DISK}
@@ -167,16 +167,16 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then
-    refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--boot-directory=/mnt/boot ${DISK} --alldrivers
+    refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--boot-directory=/mnt/boot ${DISK}
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
-echo -ne "
-"
+
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-sed -i 's/^root=PARTUUID=/root=dev/nvme0n1p2 rw add_efi_memmap" #/' /boot/EFI/refind.conf
-"
+sed -i 's/root=PARTUUID=/root=dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/refind.conf
+echo -ne "
+
 #sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 -------------------------------------------------------------------------

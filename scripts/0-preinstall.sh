@@ -166,7 +166,7 @@ echo -ne "
                    REFInd UEFI Bootloader Install & Check
 -------------------------------------------------------------------------
 "
-pacman -S refind efibootmgr
+pacman -S refind efibootmgr --noconfirm --needed
 if [[ ! -d "/sys/firmware/efi" ]]; then
     refind-install --usedefault /dev/nvme0n1p2 --alldrivers
 else
@@ -175,7 +175,7 @@ fi
 
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-sed -i '/options "root=PARTUUID=/c\   options "root=dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
+sed -i '/options "root=PARTUUID=/c\   options "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
 echo -ne "
 
 -------------------------------------------------------------------------

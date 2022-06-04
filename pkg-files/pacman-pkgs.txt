@@ -8,6 +8,8 @@ xorg-xinit
 xterm
 binutils
 dosfstools
+efibootmgr
+gnu-efi
 mtools
 linux-headers
 noto-fonts-emoji
@@ -36,7 +38,6 @@ dialog
 dmidecode
 dnsmasq
 dtc
-efibootmgr
 egl-wayland
 exfat-utils
 flex
@@ -84,6 +85,8 @@ python-psutil
 python-pyqt5
 python-pip
 qemu
+refind-docs
+sbsigntools
 snap-pac
 snapper
 steam

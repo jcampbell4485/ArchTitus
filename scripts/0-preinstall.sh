@@ -175,7 +175,7 @@ echo -ne "
 "
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-sed -i '/root=PARTUUID=/c\ options "root=dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
+sed -i '/options  root=PARTUUID=/ c\ options  "root=dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
 "
 -------------------------------------------------------------------------
                     Checking for low memory systems <8G

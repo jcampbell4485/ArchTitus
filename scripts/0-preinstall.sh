@@ -175,7 +175,7 @@ fi
 
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-sed -i 's/root=PARTUUID=/root=dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/refind.conf
+sed -i 's/"root=PARTUUID="root=dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/refind.conf
 echo -ne "
 
 -------------------------------------------------------------------------

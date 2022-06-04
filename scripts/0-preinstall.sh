@@ -151,7 +151,7 @@ echo -ne "
                     Arch Install on Main Drive
 -------------------------------------------------------------------------
 "
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
+pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget efibootmgr libnewt --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -175,8 +175,10 @@ echo -ne "
 "
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-sed -i '/options  root=PARTUUID=/ c\ options  "root=dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
+sed -i 's/^root=PARTUUID=/root=dev/nvme0n1p2 rw add_efi_memmap" #/' /boot/EFI/refind.conf
 "
+#sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+
 -------------------------------------------------------------------------
                     Checking for low memory systems <8G
 -------------------------------------------------------------------------

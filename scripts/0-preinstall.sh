@@ -167,7 +167,7 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 if [[ ! -d "/sys/firmware/efi" ]]; then
-    refind-install --usedefault --boot-directory=/mnt/boot ${DISK} --alldrivers
+    refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--boot-directory=/mnt/boot ${DISK} --alldrivers
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
@@ -175,7 +175,6 @@ echo -ne "
 "
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-#sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
 sed -i '/root=PARTUUID=/c\ options "root=dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/refind.conf
 "
 -------------------------------------------------------------------------

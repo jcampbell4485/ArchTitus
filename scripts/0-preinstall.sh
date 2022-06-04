@@ -166,8 +166,9 @@ echo -ne "
                    REFInd UEFI Bootloader Install & Check
 -------------------------------------------------------------------------
 "
+pacman -S refind efibootmgr
 if [[ ! -d "/sys/firmware/efi" ]]; then
-    refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--boot-directory=/mnt/boot ${DISK}
+    refind-install --usedefault /dev/nvme0n1p2 --alldrivers
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
@@ -176,8 +177,6 @@ mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
 sed -i 's/root=PARTUUID=/root=dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/refind.conf
 echo -ne "
-
-#sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 -------------------------------------------------------------------------
                     Checking for low memory systems <8G

@@ -129,7 +129,7 @@ elif [[ "${FS}" == "luks" ]]; then
 # now format that container
     mkfs.btrfs -L ROOT ${partition3}
 # create subvolumes for btrfs
-     mount -t btrfs ${partition2} #mount -t btrfs ${partition3} /mnt hash change for test which part is correct
+     mount -t btrfs ${partition3} /mnt # mount -t btrfs ${partition2} /mnt  hash change for test which part is correct
     subvolumesetup
 # store uuid of encrypted partition for grub
     echo ENCRYPTED_PARTITION_UUID=$(blkid -s UUID -o value ${partition3}) >> $CONFIGS_DIR/setup.conf

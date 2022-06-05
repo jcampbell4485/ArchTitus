@@ -166,3 +166,4 @@ rm -r /home/$USERNAME/ArchTitus
 
 # Replace in the same state
 cd $pwd
+exit

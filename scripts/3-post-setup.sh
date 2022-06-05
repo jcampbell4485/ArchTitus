@@ -17,45 +17,49 @@ echo -ne "
 -------------------------------------------------------------------------
 
 Final Setup and Configurations
-REFIND EFI Bootloader Install & Check
+IND EFI Bootloader Install & Check
 "
 source ${HOME}/ArchTitus/configs/setup.conf
 
 if [[ -d "/sys/firmware/efi" ]]; then
-    refind-install --default /dev/nvme0n2p1 --alldrivers #--efi-directory=/boot ${DISK} --alldrivers
+    refind-install --default --efi-directory=/boot ${DISK} --alldrivers
 fi
-mkrlconf
-sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
-#sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
-#sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
-sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 echo -ne "
 -------------------------------------------------------------------------
                Creating (and Theming) Refind Boot Menu
 -------------------------------------------------------------------------
-"
-# set kernel parameter for decrypting the drive
-if [[ "${FS}" == "luks" ]]; then
-sed -i "s%REFIND_CMDLINE_LINUX_DEFAULT=\"%REFIND_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/refind
-fi
-# set kernel parameter for adding splash screen
-sed -i 's/REFIND_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/refind
 
-echo -e "Installing metro theme..."
-THEME_DIR="/boot/refind/themes"
-THEME_NAME=refind-theme-metro-git
-echo -e "Creating the theme directory..."
-mkdir -p "${THEME_DIR}/${THEME_NAME}"
-echo -e "Copying the theme..."
-cd ${HOME}/ArchTitus
-cp -a configs${THEME_DIR}/${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
-echo -e "Backing up refind config..."
-cp -an /etc/default/refind /etc/default/refind.bak
-echo -e "Setting the theme as the default..."
-grep "REFIND_THEME=" /etc/default/refind 2>&1 >/dev/null && sed -i '/REFIND_THEME=/d' /etc/default/refind
-echo "REFIND_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/refind
-echo -e "Updating refind..."
-refind-mkconfig -o /boot/refind/refind.cfg
+"
+#make and edit refind for arch linux and hard drive
+mkrlconf
+sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
+
+#sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+#sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
+sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+
+# set kernel parameter for decrypting the drive
+#if [[ "${FS}" == "luks" ]]; then
+#sed -i "s%GRUB_CMDLINE_LINUX_DEFAULT=\"%GRUB_CMDLINE_LINUX_DEFAULT=\"cryptdevice=UUID=${ENCRYPTED_PARTITION_UUID}:ROOT root=/dev/mapper/ROOT %g" /etc/default/grub
+#fi
+# set kernel parameter for adding splash screen
+#sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& splash /' /etc/default/grub
+
+#echo -e "Installing CyberRe Grub theme..."
+#THEME_DIR="/boot/grub/themes"
+#THEME_NAME=CyberRe
+#echo -e "Creating the theme directory..."
+#mkdir -p "${THEME_DIR}/${THEME_NAME}"
+#echo -e "Copying the theme..."
+#cd ${HOME}/ArchTitus
+#cp -a configs${THEME_DIR}/${THEME_NAME}/* ${THEME_DIR}/${THEME_NAME}
+#echo -e "Backing up Grub config..."
+#cp -an /etc/default/grub /etc/default/grub.bak
+#echo -e "Setting the theme as the default..."
+#grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
+#echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
+#echo -e "Updating grub..."
+#grub-mkconfig -o /boot/grub/grub.cfg
 echo -e "All set!"
 
 echo -ne "
@@ -166,4 +170,4 @@ rm -r /home/$USERNAME/ArchTitus
 
 # Replace in the same state
 cd $pwd
-exit
+#exit

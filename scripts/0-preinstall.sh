@@ -166,7 +166,7 @@ echo -ne "
                    REFInd UEFI Bootloader Install & Check
 -------------------------------------------------------------------------
 "
-pacman -S refind efibootmgr --noconfirm --needed 
+pacman -S refind efibootmgr mtools dosfstools dialog base-devel linux-headers --noconfirm --needed 
 if [[ ! -d "/sys/firmware/efi" ]]; then
     refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--efi-directory=/boot ${DISK} --alldrivers
 else

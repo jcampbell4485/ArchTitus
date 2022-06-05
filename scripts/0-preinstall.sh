@@ -168,16 +168,16 @@ echo -ne "
 "
 pacman -S refind efibootmgr mtools dosfstools dialog base-devel linux-headers --noconfirm --needed 
 if [[ ! -d "/sys/firmware/efi" ]]; then
-    refind-install --usedefault /dev/nvme0n1p2 --alldrivers #--efi-directory=/boot ${DISK} --alldrivers
+    refind-install --usedefault --efi-directory=/boot ${DISK} --alldrivers #/dev/nvme0n1p2 --alldrivers
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
 
 mkrlconf
 sed '/archisobasedir=arch/d' /boot/refind_linux.conf
-#sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"/' /boot/EFI/BOOT/refind.conf
+sed 's/^root=PARTUUID/root=/dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
-sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+#sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 #sed -i '/TEXT_TO_BE_REPLACED/c\This line is removed by the admin.' /tmp/foo
 #pacman -Sy --noconfirm --needed
 #sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf

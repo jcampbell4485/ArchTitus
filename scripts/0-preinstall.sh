@@ -175,9 +175,9 @@ fi
 
 mkrlconf
 sed '/archisobasedir=arch/d' /boot/refind_linux.conf
-sed 's/^root=PARTUUID/root=/dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/BOOT/refind.conf
+sed 's|.*PARTUUID.*|/dev/nvme0n1p2 rw add_efi_memmap" # |' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
-#sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+#sed -i '/PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"/' /boot/EFI/BOOT/refind.conf
 #sed -i '/TEXT_TO_BE_REPLACED/c\This line is removed by the admin.' /tmp/foo
 #pacman -Sy --noconfirm --needed
 #sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf

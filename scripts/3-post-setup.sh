@@ -33,10 +33,11 @@ echo -ne "
 #make and edit refind for arch linux and hard drive
 mkrlconf
 sed '/archisobasedir=arch/d/' /boot/refind_linux.conf
+sed 's/^root=PARTUUID/root=/dev/nvme0n1p2 rw add_efi_memmap" # /' /boot/EFI/BOOT/refind.conf
 
 #sed -i '/root=PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
-sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+#sed 's/.*root=PARTUUID.*/  options  "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
 
 # set kernel parameter for decrypting the drive
 #if [[ "${FS}" == "luks" ]]; then

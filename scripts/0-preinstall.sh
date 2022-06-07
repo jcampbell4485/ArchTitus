@@ -169,14 +169,22 @@ echo -ne "
 pacman -S refind efibootmgr mtools dosfstools dialog base-devel linux-headers --noconfirm --needed 
 if [[ ! -d "/sys/firmware/efi" ]]; then
     refind-install --usedefault --efi-directory=/boot ${DISK} --alldrivers #/dev/nvme0n1p2 --alldrivers
+    mkrlconf
+    sed '1d,2d' /boot/refind_linux.conf /boot/refind_linux.conf
+    sed 's|.*PARTUUID.*|/dev/  options nvme0n1p2 rw add_efi_memmap" # |' /boot/EFI/BOOT/refind.conf
+
 else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
 
-mkrlconf
-sed '/archisobasedir=arch/d' /boot/refind_linux.conf
-sed 's|.*PARTUUID.*|/dev/nvme0n1p2 rw add_efi_memmap" # |' /boot/EFI/BOOT/refind.conf
+#mkrlconf
+#sed '/archisobasedir=arch/d' /boot/refind_linux.conf
+#sed 's/.*<expression>.*/<expression>SE_LABEL = ABC<expression>/g' MYR2.xml > test.txt
+#sed 's|.*PARTUUID.*|/dev/  options nvme0n1p2 rw add_efi_memmap" # |' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
+#sed -i "/TEXT_TO_BE_REPLACED/c $REPLACEMENT_TEXT_STRING" /tmp/foo
+#sed -i '/PARTUUID/c $  options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf
+
 #sed -i '/PARTUUID/c\   options   "root=/dev/nvme0n1p2 rw add_efi_memmap"/' /boot/EFI/BOOT/refind.conf
 #sed -i '/TEXT_TO_BE_REPLACED/c\This line is removed by the admin.' /tmp/foo
 #pacman -Sy --noconfirm --needed

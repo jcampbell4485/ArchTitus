@@ -178,10 +178,10 @@ else
     pacstrap /mnt efibootmgr --noconfirm --needed
 fi
 
-#mkrlconf
-#sed '/archisobasedir=arch/d' /boot/refind_linux.conf
+mkrlconf
+sed '/archisobasedir=arch/d' /boot/refind_linux.conf
 #sed 's/.*<expression>.*/<expression>SE_LABEL = ABC<expression>/g' MYR2.xml > test.txt
-#sed 's|.*PARTUUID.*|/dev/  options nvme0n1p2 rw add_efi_memmap" # |' /boot/EFI/BOOT/refind.conf
+sed 's|.*PARTUUID.*|   options  "root=/dev/nvme0n1p2 rw add_efi_memmap" |' /boot/EFI/BOOT/refind.conf
 #sed 's/.*TEXT_TO_BE_REPLACED.*/This line is removed by the admin./'
 #sed -i "/TEXT_TO_BE_REPLACED/c $REPLACEMENT_TEXT_STRING" /tmp/foo
 #sed -i '/PARTUUID/c $  options   "root=/dev/nvme0n1p2 rw add_efi_memmap"' /boot/EFI/BOOT/refind.conf

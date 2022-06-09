@@ -17,7 +17,7 @@ echo -ne "
 -------------------------------------------------------------------------
 
 Final Setup and Configurations
-IND EFI Bootloader Install & Check
+REIND EFI Bootloader Install & Check
 "
 source ${HOME}/ArchTitus/configs/setup.conf
 
@@ -142,6 +142,7 @@ echo -ne "
                Enabling (and Theming) Plymouth Boot Splash
 -------------------------------------------------------------------------
 "
+
 PLYMOUTH_THEMES_DIR="$HOME/ArchTitus/configs/usr/share/plymouth/themes"
 PLYMOUTH_THEME="arch-glow" # can grab from config later if we allow selection
 mkdir -p /usr/share/plymouth/themes
@@ -173,4 +174,3 @@ rm -r /home/$USERNAME/ArchTitus
 
 # Replace in the same state
 cd $pwd
-exit
